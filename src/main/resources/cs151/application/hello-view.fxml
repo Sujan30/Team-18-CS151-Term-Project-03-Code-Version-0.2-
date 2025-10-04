@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="cs151.application.MainController">
+    <padding>
+        <Insets bottom="24.0" left="32.0" right="32.0" top="24.0"/>
+    </padding>
+
+    <Label text="Academic Folio" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label text="Choose an option below to configure course resources." wrapText="true"/>
+    <Button fx:id="defineLanguageButton"
+            text="Define Programming Languages"
+            maxWidth="Infinity"
+            onAction="#onDefineProgrammingLanguage"/>
+</VBox>
