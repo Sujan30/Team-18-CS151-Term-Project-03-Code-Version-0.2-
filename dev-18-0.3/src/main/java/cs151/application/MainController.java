@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+/**
+ * Controller for the home view. Provides navigation into the programming language definition flow.
+ */
 public class MainController {
 
     @FXML
@@ -22,7 +25,7 @@ public class MainController {
     protected void onDefineProgrammingLanguage() throws IOException {
         Stage currentStage = (Stage) defineLanguageButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("define-language-view.fxml"));
-        Scene scene = new Scene(loader.load(), 480, 320);
+        Scene scene = new Scene(loader.load(), 720, 540);
         currentStage.setScene(scene);
         currentStage.setTitle("Define Programming Language");
     }
