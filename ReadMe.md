@@ -1,5 +1,5 @@
 # Name of application: Academic Folio
-# Version: 0.2
+# Version: 0.3
 
 # who did what:
 1. **Joel Jacob**: Worked on the ui/ux for the table for adding programming languages.
