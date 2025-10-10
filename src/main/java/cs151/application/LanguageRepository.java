@@ -22,7 +22,7 @@ public class LanguageRepository {
     private final Path storagePath;
 
     /**
-     * Builds a repository using the default storage location under the user's home directory.
+     * Builds a repository using the default storage location under the app's directory.
      */
     public LanguageRepository() {
         this(Paths.get(System.getProperty("user.dir"), "data", "programming-languages.csv"));
