@@ -3,8 +3,8 @@
 
 # who did what:
 1. **Joel Jacob**: Worked on the ui/ux for the table for adding programming languages.
-2. **Sujan Nandikol Sunilkumar**: 
-3. **Zihao He**: 
+2. **Sujan Nandikol Sunilkumar**: Help design the structure of the program
+3. **Zihao He**: Clean and package all codes. Confirm they works on different machine.
 
 
 # Any other instruction that users need to know:

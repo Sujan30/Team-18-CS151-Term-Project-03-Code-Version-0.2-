@@ -27,6 +27,7 @@
             <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" minWidth="120.0"/>
                 <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints halignment="RIGHT" minWidth="120.0"/>
             </columnConstraints>
 
             <Label text="Name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
@@ -35,6 +36,12 @@
                        GridPane.rowIndex="0"
                        GridPane.columnIndex="1"
                        maxWidth="Infinity"/>
+            <Button text="Save"
+                    prefWidth="120.0"
+                    onAction="#onSaveLanguage"
+                    defaultButton="true"
+                    GridPane.rowIndex="0"
+                    GridPane.columnIndex="2"/>
         </GridPane>
 
         <Label fx:id="feedbackLabel" alignment="CENTER" maxWidth="Infinity"/>
@@ -57,9 +64,5 @@
                 prefWidth="120.0"
                 onAction="#onBackToHome"
                 cancelButton="true"/>
-        <Button text="Save"
-                prefWidth="120.0"
-                onAction="#onSaveLanguage"
-                defaultButton="true"/>
     </HBox>
 </VBox>
