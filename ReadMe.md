@@ -28,5 +28,5 @@ who did what:
 This is compiled and run on Zulu 25 since Zulu 23 has reached EOL.  
 Although, it should still work on Zulu 23.
 
-All the data is stored locally in data/programming-languages.csv.
+All the data is stored locally in data.
 
