@@ -43,6 +43,11 @@ import javafx.scene.text.Text;
  */
 public class StudentProfileController {
 
+    // Mode switch between create mode, edit mode
+    public enum Mode { CREATE, EDIT }
+    private Mode currentMode = Mode.CREATE;
+    private StudentProfile editingProfile = null;
+
     private static final List<String> ACADEMIC_STATUSES = List.of("Freshman", "Sophomore", "Junior", "Senior", "Graduate");
     private static final List<String> DATABASE_OPTIONS = List.of("MySQL", "Postgres", "MongoDB", "SQLite", "Oracle");
     private static final List<String> PREFERRED_ROLES = List.of("Front-End", "Back-End", "Full-Stack", "Data", "Other");
@@ -148,6 +153,14 @@ public class StudentProfileController {
         Platform.runLater(() -> rootPane.requestFocus());
     }
 
+    // [Edit Mode] Initializes the controller for editing an existing profile.
+    public void initializeForEdit(StudentProfile profile) {
+        this.currentMode = Mode.EDIT;
+        this.editingProfile = profile;
+        populateFormWithProfile(profile);
+        adjustUIForEditMode();
+    }
+
     private void initializeJobStatusControls() {
         jobStatusGroup = new ToggleGroup();
         employedRadio.setToggleGroup(jobStatusGroup);
@@ -229,6 +242,53 @@ public class StudentProfileController {
         }
     }
 
+    // [Edit Mode]
+    private void populateFormWithProfile(StudentProfile profile) {
+        fullNameField.setText(profile.getFullName());
+        academicStatusCombo.setValue(profile.getAcademicStatus());
+
+        if (profile.isEmployed()) {
+            employedRadio.setSelected(true);
+            jobDetailsField.setText(profile.getJobDetails());
+        } else {
+            unemployedRadio.setSelected(true);
+        }
+
+        // Select languages
+        profile.getProgrammingLanguages().forEach(lang -> {
+            int index = languagesListView.getItems().indexOf(lang);
+            if (index >= 0) {
+                languagesListView.getSelectionModel().select(index);
+            }
+        });
+
+        // Select databases
+        profile.getDatabases().forEach(db -> {
+            int index = databasesListView.getItems().indexOf(db);
+            if (index >= 0) {
+                databasesListView.getSelectionModel().select(index);
+            }
+        });
+
+        preferredRoleCombo.setValue(profile.getPreferredRole());
+        comments.setAll(profile.getComments());
+        whitelistCheckBox.setSelected(profile.isWhitelist());
+        blacklistCheckBox.setSelected(profile.isBlacklist());
+    }
+
+    // [Edit Mode]
+    private void adjustUIForEditMode() {
+        // Hide profiles table and related buttons in edit mode
+        profilesContainer.setVisible(false);
+        profilesContainer.setManaged(false);
+        toggleProfilesButton.setVisible(false);
+        toggleProfilesButton.setManaged(false);
+
+        // Change feedback to indicate edit mode
+        feedbackLabel.setText("Editing profile: " + editingProfile.getFullName());
+        feedbackLabel.setStyle("-fx-text-fill: #1976d2;");
+    }
+
     private void handleJobStatusChange(@SuppressWarnings("unused") ObservableValue<? extends Toggle> observable,
                                        @SuppressWarnings("unused") Toggle previousToggle,
                                        Toggle currentToggle) {
@@ -286,7 +346,9 @@ public class StudentProfileController {
             return;
         }
 
+        // [Edit Mode]
         boolean nameExists = profiles.stream()
+                .filter(profile -> currentMode == Mode.CREATE || !profile.getFullName().equals(editingProfile.getFullName()))
                 .anyMatch(profile -> profile.getFullName().equalsIgnoreCase(trimmedName));
         if (nameExists) {
             setError("A profile with this name already exists.");
@@ -351,14 +413,43 @@ public class StudentProfileController {
                 whitelist,
                 blacklist);
 
+        // [Edit Mode]
+        if (currentMode == Mode.EDIT) {
+            // Remove old profile
+            profiles.removeIf(p -> p.getFullName().equals(editingProfile.getFullName()));
+        }
+
+        // [Create Mode][Edit Mode]
         profiles.add(profile);
         sortProfiles();
         try {
             profileRepository.saveAll(profiles);
-            clearForm();
-            setSuccess("Profile saved successfully.");
+            if (currentMode == Mode.EDIT) {
+                // Return to search view
+                Platform.runLater(() -> {
+                    try {
+                        setSuccess("Profile updated successfully.");
+                        // Thread.sleep(1000);
+                        // [Edit Mode] Back to home page
+                        // onBackToHome();
+                        // [Edit Mode] Back to search student profiles page
+                        Stage currentStage = (Stage) feedbackLabel.getScene().getWindow();
+                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("search-student-profile-view.fxml"));
+                        switchScene(currentStage, loader, "Search Student Profiles");
+                    } catch (Exception e) {
+                        // Ignore
+                    }
+                });
+            } else {
+                clearForm();
+                setSuccess("Profile saved successfully.");
+            }
         } catch (IOException exception) {
-            profiles.remove(profile);
+            if (currentMode == Mode.EDIT) {
+                profiles.add(editingProfile); // Restore old profile
+            } else {
+                profiles.remove(profile);
+            }
             setError("Unable to save profile. Please try again.");
         }
     }
