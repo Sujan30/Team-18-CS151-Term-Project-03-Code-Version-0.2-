@@ -178,6 +178,27 @@ public class SearchStudentProfileController {
     }
 
     @FXML
+    private void onEditSelectedProfile() throws IOException {
+        StudentProfile selected = profilesTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showError("Select a profile before editing.");
+            return;
+        }
+
+        FilterState currentFilters = captureCurrentFilters();
+
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("edit-student-profile-view.fxml"));
+        Parent view = loader.load();
+        EditStudentProfileController controller = loader.getController();
+        controller.setReturnState(currentFilters.nameFilter, currentFilters.statusFilter, currentFilters.languageFilter,
+                currentFilters.databaseFilter, currentFilters.roleFilter);
+        controller.setProfile(selected);
+
+        Stage stage = (Stage) rootContainer.getScene().getWindow();
+        switchScene(stage, view, "Edit Student Profile");
+    }
+
+    @FXML
     private void onBackToHome() throws IOException {
         Stage currentStage = (Stage) rootContainer.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
@@ -308,6 +329,34 @@ public class SearchStudentProfileController {
         roleFilterCombo.getSelectionModel().clearSelection();
     }
 
+    public void applyInitialFilters(String nameValue, String statusValue, String languageValue, String databaseValue,
+                                    String roleValue) {
+        nameFilterField.setText(nameValue == null ? "" : nameValue);
+        selectComboValue(statusFilterCombo, statusValue);
+        selectComboValue(languageFilterCombo, languageValue);
+        selectComboValue(databaseFilterCombo, databaseValue);
+        selectComboValue(roleFilterCombo, roleValue);
+        applyFilters(false);
+    }
+
+    public void showSuccessMessage(String message) {
+        showSuccess(message);
+    }
+
+    private void selectComboValue(ComboBox<String> comboBox, String value) {
+        if (comboBox == null) {
+            return;
+        }
+        comboBox.getSelectionModel().clearSelection();
+        if (value == null || value.isBlank()) {
+            return;
+        }
+        comboBox.getItems().stream()
+                .filter(item -> item.equalsIgnoreCase(value))
+                .findFirst()
+                .ifPresent(match -> comboBox.getSelectionModel().select(match));
+    }
+
     private String normalize(String value) {
         return value == null ? "" : value.trim();
     }
@@ -355,6 +404,10 @@ public class SearchStudentProfileController {
 
     private void switchScene(Stage stage, FXMLLoader loader, String title) throws IOException {
         Parent view = loader.load();
+        switchScene(stage, view, title);
+    }
+
+    private void switchScene(Stage stage, Parent view, String title) {
         Scene scene = stage.getScene();
         if (scene == null) {
             scene = new Scene(view);
@@ -363,5 +416,31 @@ public class SearchStudentProfileController {
             scene.setRoot(view);
         }
         stage.setTitle(title);
+    }
+
+    private FilterState captureCurrentFilters() {
+        return new FilterState(
+                nameFilterField.getText(),
+                statusFilterCombo.getValue(),
+                languageFilterCombo.getValue(),
+                databaseFilterCombo.getValue(),
+                roleFilterCombo.getValue());
+    }
+
+    private static final class FilterState {
+        private final String nameFilter;
+        private final String statusFilter;
+        private final String languageFilter;
+        private final String databaseFilter;
+        private final String roleFilter;
+
+        private FilterState(String nameFilter, String statusFilter, String languageFilter, String databaseFilter,
+                            String roleFilter) {
+            this.nameFilter = nameFilter;
+            this.statusFilter = statusFilter;
+            this.languageFilter = languageFilter;
+            this.databaseFilter = databaseFilter;
+            this.roleFilter = roleFilter;
+        }
     }
 }

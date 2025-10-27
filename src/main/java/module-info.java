@@ -1,6 +1,7 @@
 module cs151.application {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics; // Needed for graphics/native access
 
     requires com.dlsc.formsfx;
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="rootContainer" alignment="TOP_LEFT" spacing="18.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="cs151.application.EditStudentProfileController">
+    <padding>
+        <Insets bottom="24.0" left="32.0" right="32.0" top="24.0"/>
+    </padding>
+
+    <Label text="Edit Student Profile" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label text="Update stored information and save to persist your changes." wrapText="true"/>
+
+    <GridPane hgap="12.0" vgap="12.0">
+        <columnConstraints>
+            <ColumnConstraints prefWidth="160.0"/>
+            <ColumnConstraints prefWidth="320.0" hgrow="ALWAYS"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+            <RowConstraints/>
+            <RowConstraints/>
+            <RowConstraints/>
+        </rowConstraints>
+        <children>
+            <Label text="Full Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="fullNameField" promptText="Student full name" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Academic Status" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="academicStatusCombo" prefWidth="240.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="Employment Status" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <HBox spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <children>
+                    <RadioButton fx:id="employedRadio" text="Employed"/>
+                    <RadioButton fx:id="unemployedRadio" text="Not Employed"/>
+                </children>
+            </HBox>
+
+            <Label text="Job Details" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextField fx:id="jobDetailsField" promptText="Role, employer, schedule" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        </children>
+    </GridPane>
+
+    <GridPane hgap="16.0" vgap="16.0">
+        <columnConstraints>
+            <ColumnConstraints prefWidth="240.0"/>
+            <ColumnConstraints prefWidth="240.0"/>
+        </columnConstraints>
+        <children>
+            <VBox spacing="6.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label text="Programming Languages" style="-fx-font-weight: bold;"/>
+                <ListView fx:id="languagesListView" prefHeight="150.0"/>
+            </VBox>
+
+            <VBox spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label text="Database Skills" style="-fx-font-weight: bold;"/>
+                <ListView fx:id="databasesListView" prefHeight="150.0"/>
+            </VBox>
+
+            <Label text="Preferred Role" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="preferredRoleCombo" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </children>
+    </GridPane>
+
+    <VBox spacing="8.0">
+        <Label text="Stored Comments (one per line)" style="-fx-font-weight: bold;"/>
+        <TextArea fx:id="commentsArea" prefRowCount="4" wrapText="true"/>
+    </VBox>
+
+    <HBox spacing="16.0" alignment="CENTER_LEFT">
+        <CheckBox fx:id="whitelistCheckBox" text="Whitelist"/>
+        <CheckBox fx:id="blacklistCheckBox" text="Blacklist"/>
+    </HBox>
+
+    <Label fx:id="feedbackLabel" wrapText="true"/>
+
+    <HBox spacing="12.0">
+        <Button text="Save Changes" onAction="#onSaveProfile" defaultButton="true"/>
+        <Button text="Back to Search" onAction="#onBackToSearch" cancelButton="true"/>
+    </HBox>
+</VBox>

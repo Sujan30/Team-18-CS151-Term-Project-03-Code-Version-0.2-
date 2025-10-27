@@ -79,6 +79,47 @@ public class StudentProfileRepository {
     }
 
     /**
+     * Updates a stored profile by replacing the record matching {@code originalName}.
+     *
+     * @param originalName   the existing profile name used to locate the record (case-insensitive)
+     * @param updatedProfile profile instance containing new values
+     * @return {@code true} when the record was replaced, {@code false} if a conflict or missing record prevented the update
+     * @throws IOException when the underlying storage file cannot be accessed
+     */
+    public boolean updateProfile(String originalName, StudentProfile updatedProfile) throws IOException {
+        if (originalName == null || originalName.isBlank() || updatedProfile == null) {
+            return false;
+        }
+
+        List<StudentProfile> profiles = loadAll();
+        int matchIndex = -1;
+        for (int i = 0; i < profiles.size(); i++) {
+            if (profiles.get(i).getFullName().equalsIgnoreCase(originalName.trim())) {
+                matchIndex = i;
+                break;
+            }
+        }
+
+        if (matchIndex < 0) {
+            return false;
+        }
+
+        String updatedName = updatedProfile.getFullName() == null ? "" : updatedProfile.getFullName().trim();
+        for (int i = 0; i < profiles.size(); i++) {
+            if (i == matchIndex) {
+                continue;
+            }
+            if (profiles.get(i).getFullName().equalsIgnoreCase(updatedName)) {
+                return false;
+            }
+        }
+
+        profiles.set(matchIndex, updatedProfile);
+        saveAll(profiles);
+        return true;
+    }
+
+    /**
      * Deletes the profile whose full name matches the provided value (case-insensitive).
      *
      * @param fullName name of the profile to delete
