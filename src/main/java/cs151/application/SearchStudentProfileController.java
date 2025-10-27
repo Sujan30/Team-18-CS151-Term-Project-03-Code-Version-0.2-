@@ -153,29 +153,29 @@ public class SearchStudentProfileController {
     }
 
     // [Edit Mode]
-    @FXML
-    private void onEditSelectedProfile() {
-        StudentProfile selected = profilesTable.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            showError("Select a profile before editing.");
-            return;
-        }
-
-        try {
-            Stage currentStage = (Stage) rootContainer.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("student-profile-view.fxml"));
-            Parent view = loader.load();
-
-            StudentProfileController controller = loader.getController();
-            controller.initializeForEdit(selected);
-
-            Scene scene = currentStage.getScene();
-            scene.setRoot(view);
-            currentStage.setTitle("Edit Student Profile");
-        } catch (IOException exception) {
-            showError("Unable to open edit view. Please try again.");
-        }
-    }
+    // @FXML
+//    private void onEditSelectedProfile() {
+//        StudentProfile selected = profilesTable.getSelectionModel().getSelectedItem();
+//        if (selected == null) {
+//            showError("Select a profile before editing.");
+//            return;
+//        }
+//
+//        try {
+//            Stage currentStage = (Stage) rootContainer.getScene().getWindow();
+//            FXMLLoader loader = new FXMLLoader(Main.class.getResource("student-profile-view.fxml"));
+//            Parent view = loader.load();
+//
+//            StudentProfileController controller = loader.getController();
+//            controller.initializeForEdit(selected);
+//
+//            Scene scene = currentStage.getScene();
+//            scene.setRoot(view);
+//            currentStage.setTitle("Edit Student Profile");
+//        } catch (IOException exception) {
+//            showError("Unable to open edit view. Please try again.");
+//        }
+//    }
 
     @FXML
     private void onEditSelectedProfile() throws IOException {
