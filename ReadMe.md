@@ -1,5 +1,11 @@
 # Name of application: Academic Folio
 
+# Version: 0.7
+who did what:
+1. **Joel Jacob**: Worked on the Edit Student Profiles Page.
+2. **Sujan Nandikol Sunilkumar**: 
+3. **Zihao He**:
+
 # Version: 0.6
 who did what:
 1. **Joel Jacob**: Worked on the Search Student Profiles Page.
