@@ -3,14 +3,14 @@
 # Version: 0.7
 who did what:
 1. **Joel Jacob**: Worked on the Edit Student Profiles Page.
-2. **Sujan Nandikol Sunilkumar**: 
-3. **Zihao He**:
+2. **Sujan Nandikol Sunilkumar**: Help design the structure of the program
+3. **Zihao He**: Worked on the Edit Student Profiles Page. Clean and package all codes. Confirm they works on different machine.
 
 # Version: 0.6
 who did what:
 1. **Joel Jacob**: Worked on the Search Student Profiles Page.
-2. **Sujan Nandikol Sunilkumar**: 
-3. **Zihao He**: 
+2. **Sujan Nandikol Sunilkumar**: Help design the structure of the program
+3. **Zihao He**: Clean and package all codes. Confirm they works on different machine.
 
 # Version: 0.5
 who did what:
