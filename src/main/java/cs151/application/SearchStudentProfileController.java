@@ -102,11 +102,15 @@ public class SearchStudentProfileController {
     private Button editButton;
 
     @FXML
+    private Button commentsButton;
+
+    @FXML
     private void initialize() {
         setupFilters();
         setupTable();
-        deleteButton.disableProperty().bind(profilesTable.getSelectionModel().selectedItemProperty().isNull());
-        editButton.disableProperty().bind(profilesTable.getSelectionModel().selectedItemProperty().isNull());
+    deleteButton.disableProperty().bind(profilesTable.getSelectionModel().selectedItemProperty().isNull());
+    editButton.disableProperty().bind(profilesTable.getSelectionModel().selectedItemProperty().isNull());
+    commentsButton.disableProperty().bind(profilesTable.getSelectionModel().selectedItemProperty().isNull());
         boolean loaded = loadProfiles();
         applyFilters(false);
         if (!loaded) {
@@ -196,6 +200,27 @@ public class SearchStudentProfileController {
 
         Stage stage = (Stage) rootContainer.getScene().getWindow();
         switchScene(stage, view, "Edit Student Profile");
+    }
+
+    @FXML
+    private void onViewComments() throws IOException {
+        StudentProfile selected = profilesTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showError("Select a profile before viewing comments.");
+            return;
+        }
+
+        FilterState currentFilters = captureCurrentFilters();
+
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("view-student-comments-view.fxml"));
+        Parent view = loader.load();
+        ViewStudentCommentsController controller = loader.getController();
+        controller.setReturnState(currentFilters.nameFilter, currentFilters.statusFilter, currentFilters.languageFilter,
+                currentFilters.databaseFilter, currentFilters.roleFilter);
+        controller.setProfile(selected);
+
+        Stage stage = (Stage) rootContainer.getScene().getWindow();
+        switchScene(stage, view, "Student Comments");
     }
 
     @FXML
@@ -336,7 +361,11 @@ public class SearchStudentProfileController {
         selectComboValue(languageFilterCombo, languageValue);
         selectComboValue(databaseFilterCombo, databaseValue);
         selectComboValue(roleFilterCombo, roleValue);
+        boolean loaded = loadProfiles();
         applyFilters(false);
+        if (!loaded) {
+            showError("Unable to load stored profiles. Define profiles first.");
+        }
     }
 
     public void showSuccessMessage(String message) {
