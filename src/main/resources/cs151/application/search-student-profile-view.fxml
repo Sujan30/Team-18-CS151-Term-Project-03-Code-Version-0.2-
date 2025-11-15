@@ -81,7 +81,7 @@
     </TableView>
 
     <HBox alignment="CENTER_LEFT" spacing="12.0">
-        <Button fx:id="commentsButton" text="View Comments" onAction="#onViewComments"/>
+        <Button fx:id="commentsButton" text="Add Comments" onAction="#onViewComments"/>
         <Button fx:id="editButton" text="Edit Selected" onAction="#onEditSelectedProfile"/>
         <Button fx:id="deleteButton" text="Delete Selected" onAction="#onDeleteSelectedProfile"/>
         <Button text="Back to Home" onAction="#onBackToHome"/>

@@ -113,16 +113,8 @@ public class ViewStudentCommentsController {
             return;
         }
 
-        String sanitized = enteredComment.replaceAll("\r?\n", " ").trim();
-        sanitized = sanitized.replaceAll("\s+", " ");
-        if (sanitized.isEmpty()) {
-            setError("Enter a comment before saving.");
-            commentInputArea.requestFocus();
-            return;
-        }
-
-        String stampedComment = String.format(Locale.ENGLISH, "%s - %s",
-                LocalDate.now().format(COMMENT_DATE_FORMAT), sanitized);
+        String stampedComment = String.format(Locale.ENGLISH, "%s\n%s",
+                LocalDate.now().format(COMMENT_DATE_FORMAT), enteredComment);
         List<String> updatedComments = new ArrayList<>(currentProfile.getComments());
         updatedComments.add(stampedComment);
 

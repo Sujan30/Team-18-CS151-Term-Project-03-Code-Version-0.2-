@@ -329,7 +329,7 @@ public class StudentProfileController {
             feedbackLabel.setStyle("-fx-text-fill: #d32f2f;");
             return;
         }
-        String stampedComment = String.format("%s - %s", LocalDate.now().format(COMMENT_DATE_FORMAT), entry);
+        String stampedComment = String.format("%s\n%s", LocalDate.now().format(COMMENT_DATE_FORMAT), entry);
         comments.add(stampedComment);
         commentInputArea.clear();
         feedbackLabel.setText("Comment added.");

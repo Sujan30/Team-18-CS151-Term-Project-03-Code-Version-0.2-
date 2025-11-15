@@ -4,7 +4,7 @@
 who did what:
 1. **Joel Jacob**: Worked on the Add Comments Page.
 2. **Sujan Nandikol Sunilkumar**: Help design the structure of the program
-3. **Zihao He**: Worked on the Edit Student Profiles Page. Clean and package all codes. Confirm they works on different machine.
+3. **Zihao He**: Fix a BUG which convert multiple-line comment into single line comment. Confirm they works on different machine.
 
 # Version: 0.7
 who did what:

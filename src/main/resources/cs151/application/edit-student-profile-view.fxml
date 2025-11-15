@@ -77,8 +77,8 @@
     </GridPane>
 
     <VBox spacing="8.0">
-        <Label text="Stored Comments (one per line)" style="-fx-font-weight: bold;"/>
-        <TextArea fx:id="commentsArea" prefRowCount="4" wrapText="true"/>
+        <Label text="Stored Comments" style="-fx-font-weight: bold;"/>
+        <TextArea fx:id="commentsArea" prefRowCount="4" wrapText="true" editable="false"/>
     </VBox>
 
     <HBox spacing="16.0" alignment="CENTER_LEFT">

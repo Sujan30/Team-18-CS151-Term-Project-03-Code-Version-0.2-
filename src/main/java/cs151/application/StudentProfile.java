@@ -116,11 +116,14 @@ public class StudentProfile {
                 continue;
             }
 
-            // Expect comments to be prefixed with date in yyyy-MM-dd (e.g. "2025-10-24 - note")
+            // Expect comments to start with date in yyyy-MM-dd on first line
             String datePrefix = null;
-            int dash = c.indexOf(" - ");
-            if (dash > 0 && dash >= 8) {
-                datePrefix = c.substring(0, dash);
+            int newline = c.indexOf('\n');
+            if (newline > 0 && newline >= 10) {
+                String firstLine = c.substring(0, newline).trim();
+                if (firstLine.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                    datePrefix = firstLine;
+                }
             }
 
             if (previousDate != null && datePrefix != null && !datePrefix.equals(previousDate)) {
