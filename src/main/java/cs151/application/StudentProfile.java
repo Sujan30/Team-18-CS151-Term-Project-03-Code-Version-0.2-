@@ -104,7 +104,39 @@ public class StudentProfile {
     }
 
     public String formatComments() {
-        return comments.isEmpty() ? "" : String.join(" | ", comments);
+        if (comments == null || comments.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder out = new StringBuilder();
+        String previousDate = null;
+        for (int i = 0; i < comments.size(); i++) {
+            String c = comments.get(i);
+            if (c == null || c.isBlank()) {
+                continue;
+            }
+
+            // Expect comments to be prefixed with date in yyyy-MM-dd (e.g. "2025-10-24 - note")
+            String datePrefix = null;
+            int dash = c.indexOf(" - ");
+            if (dash > 0 && dash >= 8) {
+                datePrefix = c.substring(0, dash);
+            }
+
+            if (previousDate != null && datePrefix != null && !datePrefix.equals(previousDate)) {
+                // separate different days with a blank line for readability
+                out.append(System.lineSeparator());
+            }
+
+            if (out.length() > 0) {
+                out.append(System.lineSeparator());
+            }
+            out.append(c);
+
+            previousDate = datePrefix != null ? datePrefix : previousDate;
+        }
+
+        return out.toString();
     }
 
     public String getWhitelistLabel() {
