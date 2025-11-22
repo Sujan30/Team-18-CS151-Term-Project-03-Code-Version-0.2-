@@ -1,5 +1,11 @@
 # Name of application: Academic Folio
 
+# Version: 0.9
+who did what:
+1. **Joel Jacob**: Worked on the Reports Page.
+2. **Sujan Nandikol Sunilkumar**: Help design the structure of the program
+3. **Zihao He**: Worked on the Reports Page. Clean and package all codes. Confirm they works on different machine.
+
 # Version: 0.8
 who did what:
 1. **Joel Jacob**: Worked on the Add Comments Page.
