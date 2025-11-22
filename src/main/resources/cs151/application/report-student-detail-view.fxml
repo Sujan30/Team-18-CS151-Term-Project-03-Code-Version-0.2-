@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="cs151.application.ReportStudentDetailController"
+            fx:id="rootContainer"
+            spacing="12">
+        <padding>
+                <Insets top="20" right="20" bottom="20" left="20" />
+        </padding>
+        <children>
+        <Label text="Student Report Detail" styleClass="section-title" />
+
+        <GridPane hgap="12" vgap="8">
+            <columnConstraints>
+                <ColumnConstraints minWidth="140" halignment="RIGHT" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <children>
+                <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <Label fx:id="nameValue" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <Label text="Academic Status:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <Label fx:id="statusValue" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <Label text="Job Status:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <Label fx:id="jobStatusValue" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                <Label text="Job Details:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                <Label fx:id="jobDetailsValue" wrapText="true" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+                <Label text="Languages:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                <Label fx:id="languagesValue" wrapText="true" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+                <Label text="Databases:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+                <Label fx:id="databasesValue" wrapText="true" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+                <Label text="Preferred Role:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+                <Label fx:id="roleValue" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+                <Label text="Flags:" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+                <Label fx:id="flagsValue" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+            </children>
+        </GridPane>
+
+        <Label text="Comments" style="-fx-font-weight: bold;" />
+
+        <TableView fx:id="commentsTable" prefHeight="240">
+            <columns>
+                <TableColumn fx:id="commentDateColumn" text="Date" prefWidth="140" />
+                <TableColumn fx:id="commentPreviewColumn" text="Comment Preview" prefWidth="420" />
+            </columns>
+        </TableView>
+
+        <Label fx:id="feedbackLabel" />
+
+        <HBox spacing="10">
+            <Button text="Back" onAction="#onBackToReports" />
+        </HBox>
+    </children>
+</VBox>

@@ -29,6 +29,9 @@ public class MainController {
     private Button searchStudentProfilesButton;
 
     @FXML
+    private Button reportsButton;
+
+    @FXML
     private void initialize() {
         Platform.runLater(() -> {
             if (homeRoot != null) {
@@ -66,6 +69,13 @@ public class MainController {
         Stage currentStage = (Stage) searchStudentProfilesButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("search-student-profile-view.fxml"));
         switchScene(currentStage, loader, "Search Student Profiles");
+    }
+
+    @FXML
+    protected void onViewReports() throws IOException {
+        Stage currentStage = (Stage) reportsButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("reports-view.fxml"));
+        switchScene(currentStage, loader, "Student Reports");
     }
 
     private void switchScene(Stage stage, FXMLLoader loader, String title) throws IOException {

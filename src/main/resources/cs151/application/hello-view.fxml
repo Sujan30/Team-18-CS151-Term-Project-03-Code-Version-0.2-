@@ -28,4 +28,9 @@
       maxWidth="Infinity"
       focusTraversable="false"
       onAction="#onSearchStudentProfiles"/>
+    <Button fx:id="reportsButton"
+      text="View Reports"
+      maxWidth="Infinity"
+      focusTraversable="false"
+      onAction="#onViewReports"/>
 </VBox>
